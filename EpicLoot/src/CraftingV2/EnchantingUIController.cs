@@ -523,14 +523,16 @@ namespace EpicLoot.CraftingV2
                 valuelessEffect = currentEffectDef.GetValuesForRarity(rarity) == null;
             }
 
-            var availableEffects = MagicItemEffectDefinitions.GetAvailableEffects(item.Extended(), item.GetMagicItem(), valuelessEffect ? -1 : augmentindex);
+            var availableEffects = MagicItemEffectDefinitions.GetAvailableEffects(
+                item.Extended(), item.GetMagicItem(), valuelessEffect ? -1 : augmentindex);
             
             var sb = new StringBuilder();
             sb.Append($"<color={rarityColor}>");
             foreach (var effectDef in availableEffects)
             {
                 var values = effectDef.GetValuesForRarity(item.GetRarity());
-                var valueDisplay = values != null ? Mathf.Approximately(values.MinValue, values.MaxValue) ? $"{values.MinValue}" : $"({values.MinValue}-{values.MaxValue})" : "";
+                var valueDisplay = values != null ? Mathf.Approximately(values.MinValue, values.MaxValue) ? 
+                    $"{values.MinValue}" : $"({values.MinValue}-{values.MaxValue})" : "";
                 sb.AppendLine($"‣ {string.Format(Localization.instance.Localize(effectDef.DisplayText), valueDisplay)}");
             }
             sb.Append("</color>");
